@@ -11,6 +11,7 @@ const StyledColorName = styled.div`
   align-items: center;
   font-size: 20px;
   font-weight: bold;
+  cursor: pointer;
 `;
 
 export default StyledColorName;

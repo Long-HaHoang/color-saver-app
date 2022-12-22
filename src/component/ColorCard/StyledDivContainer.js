@@ -4,7 +4,6 @@ const StyledDivContainer = styled.div`
   width: 200px;
   border: 2px solid;
   border-radius: 5px;
-  cursor: pointer;
   background-color: ${({ color }) => {
     return color;
   }};
