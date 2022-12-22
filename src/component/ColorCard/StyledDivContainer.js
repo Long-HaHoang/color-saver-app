@@ -12,6 +12,12 @@ const StyledDivContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: 0.3s ease-in-out;
+
+  &:hover {
+    filter: saturate(2);
+    transition: 0.3s ease-in-out;
+  }
 `;
 
 export default StyledDivContainer;
