@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import ColorCard from "./component/ColorCard";
 import StyledDivContainer from "./component/ColorCard/StyledDivContainer";
-import StyledColorName from "./component/ColorCard/SyledColorName";
+
 import StyledDeleteButton from "./component/ColorCard/StyledDeleteButton";
 import { useState } from "react";
 
@@ -42,25 +42,13 @@ function App() {
   return (
     <StyledApp>
       {colorsState.map((element) => (
-        <ColorCard key={element.id}>
-          <StyledDivContainer
-            color={element.colorCode}
-            onClick={(e) => {
-              // e.stopPropagation();
-              return handleColorPick(element.colorCode);
-            }}
-          >
-            <StyledDeleteButton
-              onClick={(e) => {
-                e.stopPropagation();
-                return handleDelete(element.id);
-              }}
-            >
-              &#120;
-            </StyledDeleteButton>
-            <StyledColorName>{element.colorCode}</StyledColorName>
-          </StyledDivContainer>
-        </ColorCard>
+        <ColorCard
+          key={element.id}
+          color={element.colorCode}
+          id={element.id}
+          onHandleColorPick={handleColorPick}
+          onHandleDelete={handleDelete}
+        />
       ))}
     </StyledApp>
   );
