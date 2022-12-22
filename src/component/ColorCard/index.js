@@ -25,6 +25,7 @@ export default function ColorCard({ color, onHandleClick }) {
     font-size: 20px;
     font-weight: bold;
   `;
+
   return (
     <StyledDiv onClick={onHandleClick}>
       <StyledColorName>{color}</StyledColorName>

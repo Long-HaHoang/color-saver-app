@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ColorCard from "./component/ColorColor";
+import ColorCard from "./component/ColorCard";
 
 console.clear();
 
