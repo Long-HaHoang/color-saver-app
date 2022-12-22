@@ -18,8 +18,9 @@ const StyledApp = styled.div`
   gap: 5px;
 `;
 
-function handleColorPick() {
-  console.log("😳 You clicked me!");
+function handleColorPick(colorCode) {
+  console.log("🥳 You copied the color:", colorCode);
+  navigator.clipboard.writeText(colorCode);
 }
 
 const initialColors = [
@@ -42,13 +43,22 @@ function App() {
     <StyledApp>
       {colorsState.map((element) => (
         <ColorCard key={element.id}>
-          <StyledDivContainer color={element.colorCode}>
-            <StyledDeleteButton onClick={() => handleDelete(element.id)}>
+          <StyledDivContainer
+            color={element.colorCode}
+            onClick={(e) => {
+              // e.stopPropagation();
+              return handleColorPick(element.colorCode);
+            }}
+          >
+            <StyledDeleteButton
+              onClick={(e) => {
+                e.stopPropagation();
+                return handleDelete(element.id);
+              }}
+            >
               &#120;
             </StyledDeleteButton>
-            <StyledColorName onClick={handleColorPick}>
-              {element.colorCode}
-            </StyledColorName>
+            <StyledColorName>{element.colorCode}</StyledColorName>
           </StyledDivContainer>
         </ColorCard>
       ))}
