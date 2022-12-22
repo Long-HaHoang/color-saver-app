@@ -5,7 +5,7 @@ const StyledApp = styled.div`
 `;
 
 function App() {
-  return <StyledApp className="App"></StyledApp>;
+  return <StyledApp />;
 }
 
 export default App;
