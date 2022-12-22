@@ -22,7 +22,7 @@ function handleColorPick() {
   console.log("😳 You clicked me!");
 }
 
-const colors = [
+const initialColors = [
   { colorCode: "#ccc", id: crypto.randomUUID() },
   { colorCode: "#4c6ef5", id: crypto.randomUUID() },
   { colorCode: "#82c91e", id: crypto.randomUUID() },
@@ -32,15 +32,18 @@ const colors = [
 ];
 
 function App() {
-  const [colorsState, setColorsState] = useState(colors);
+  const [colorsState, setColorsState] = useState(initialColors);
+
+  function handleDelete(id) {
+    setColorsState(colorsState.filter((element) => element.id !== id));
+  }
+
   return (
     <StyledApp>
       {colorsState.map((element) => (
-        <ColorCard key={crypto.randomUUID()}>
+        <ColorCard key={element.id}>
           <StyledDivContainer color={element.colorCode}>
-            <StyledDeleteButton
-              onClick={() => console.log("You pressed the button")}
-            >
+            <StyledDeleteButton onClick={() => handleDelete(element.id)}>
               &#120;
             </StyledDeleteButton>
             <StyledColorName onClick={handleColorPick}>
