@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import ColorCard from "./component/ColorCard";
-import StyledDiv from "./component/ColorCard/StyledDiv";
+import StyledDivContainer from "./component/ColorCard/StyledDivContainer";
 import StyledColorName from "./component/ColorCard/SyledColorName";
+import { useState } from "react";
 
 console.clear();
 
@@ -20,16 +21,28 @@ function handleColorPick() {
   console.log("😳 You clicked me!");
 }
 
-const colors = ["#ccc", "#4c6ef5", "#82c91e", "#12b866", "#82c91e", "#ccc"];
+const colors = [
+  { colorHex: "#ccc", id: crypto.randomUUID() },
+  { colorHex: "#4c6ef5", id: crypto.randomUUID() },
+  { colorHex: "#82c91e", id: crypto.randomUUID() },
+  { colorHex: "#12b866", id: crypto.randomUUID() },
+  { colorHex: "#82c91e", id: crypto.randomUUID() },
+  { colorHex: "#ccc", id: crypto.randomUUID() },
+];
 
 function App() {
+  const [colorsState, setColorsState] = useState(colors);
   return (
     <StyledApp>
       {colors.map((element) => (
-        <ColorCard>
-          <StyledDiv color={element}>
-            <StyledColorName>{element}</StyledColorName>
-          </StyledDiv>
+        <ColorCard key={crypto.randomUUID()} id={crypto.randomUUID()}>
+          <StyledDivContainer
+            color={element.colorHex}
+            onClick={handleColorPick}
+          >
+            <button>&#120;</button>
+            <StyledColorName>{element.colorHex}</StyledColorName>
+          </StyledDivContainer>
         </ColorCard>
       ))}
     </StyledApp>
