@@ -4,6 +4,7 @@ import ColorCard from "./component/ColorCard";
 import { useState } from "react";
 import handleDelete from "./util/handleDelete";
 import handleColorPick from "./util/handleColorPick";
+import ColorPickerForm from "./component/ColorPickerForm";
 
 console.clear();
 
@@ -23,6 +24,7 @@ function App() {
 
   return (
     <StyledApp>
+      <ColorPickerForm></ColorPickerForm>
       {colorsState.map((element) => (
         <ColorCard
           key={element.id}
