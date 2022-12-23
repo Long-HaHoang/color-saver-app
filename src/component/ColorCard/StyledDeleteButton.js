@@ -7,12 +7,12 @@ const StyledDeleteButton = styled.button`
   border: solid;
   border-radius: 50%;
   cursor: pointer;
-  height: 30px;
-  width: 30px;
-  font-size: 18px;
+  height: 40px;
+  aspect-ratio: 1;
+  font-size: 22px;
   font-weight: bold;
   display: flex;
   justify-content: center;
-  align-items: flex-start; ;
+  align-items: center;
 `;
 export default StyledDeleteButton;
