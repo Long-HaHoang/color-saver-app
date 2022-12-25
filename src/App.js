@@ -3,7 +3,7 @@ import { initialColors } from "./util/initialColors";
 import ColorCard from "./component/ColorCard";
 import { useState } from "react";
 import handleDelete from "./util/handleDelete";
-import handleColorPick from "./util/handleColorPick";
+import handleColorPick from "./util/handleColorCard";
 import ColorPickerForm from "./component/ColorPickerForm";
 
 console.clear();
@@ -22,11 +22,10 @@ const StyledApp = styled.div`
 const StyledHeader = styled.div`
   height: 200px;
   aspect-ratio: 1;
-  cursor: pointer;
   border: 2px solid;
   border-radius: 5px;
-  background-color: ${({ color }) => {
-    return color;
+  background-color: ${({ bgcolor }) => {
+    return bgcolor;
   }};
   display: flex;
   justify-content: center;
@@ -43,14 +42,22 @@ const StyledCardContainer = styled.div`
   flex-wrap: wrap;
 `;
 
+function handleColorSubmit(color, setColorPick) {
+  console.log("this is handleColorSubmit");
+  console.table(color, setColorPick);
+}
+
 function App() {
   const [colorsState, setColorsState] = useState(initialColors);
   const [colorPick, setColorPick] = useState("#cccccc");
 
   return (
     <StyledApp>
-      <StyledHeader>
-        <ColorPickerForm color={colorPick}></ColorPickerForm>
+      <StyledHeader bgcolor={colorPick}>
+        <ColorPickerForm
+          color={colorPick}
+          onHandleSubmit={handleColorSubmit(colorPick, setColorPick)}
+        ></ColorPickerForm>
       </StyledHeader>
 
       <StyledCardContainer>

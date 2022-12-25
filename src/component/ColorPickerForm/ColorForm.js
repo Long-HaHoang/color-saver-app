@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
 const StyledForm = styled.form`
-  background-color: hotpink;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default StyledForm;
