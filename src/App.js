@@ -12,30 +12,60 @@ const StyledApp = styled.div`
   text-align: center;
   border: solid red;
   display: flex;
-  padding: 10px;
-  justify-content: flex-start;
+  padding: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+`;
+
+const StyledHeader = styled.div`
+  height: 200px;
+  aspect-ratio: 1;
+  cursor: pointer;
+  border: 2px solid;
+  border-radius: 5px;
+  background-color: ${({ color }) => {
+    return color;
+  }};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledCardContainer = styled.div`
+  border: solid;
+
+  display: flex;
+  gap: 10px;
+  justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
-  gap: 5px;
 `;
 
 function App() {
   const [colorsState, setColorsState] = useState(initialColors);
+  const [colorPick, setColorPick] = useState("#cccccc");
 
   return (
     <StyledApp>
-      <ColorPickerForm></ColorPickerForm>
-      {colorsState.map((element) => (
-        <ColorCard
-          key={element.id}
-          color={element.colorCode}
-          id={element.id}
-          colorsState={colorsState}
-          onSetColorsState={setColorsState}
-          onHandleColorPick={handleColorPick}
-          onHandleDelete={handleDelete}
-        />
-      ))}
+      <StyledHeader>
+        <ColorPickerForm color={colorPick}></ColorPickerForm>
+      </StyledHeader>
+
+      <StyledCardContainer>
+        {colorsState.map((element) => (
+          <ColorCard
+            key={element.id}
+            color={element.colorCode}
+            id={element.id}
+            colorsState={colorsState}
+            onSetColorsState={setColorsState}
+            onHandleColorPick={handleColorPick}
+            onHandleDelete={handleDelete}
+          />
+        ))}
+      </StyledCardContainer>
     </StyledApp>
   );
 }

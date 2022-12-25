@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledForm = styled.form`
-  background-color: aquamarines;
+  background-color: hotpink;
 `;
 
 export default StyledForm;

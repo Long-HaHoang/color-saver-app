@@ -1,10 +1,15 @@
-import ColorForm from "./ColorForm";
 import ColorPickerInput from "./ColorPickerInput";
 
-export default function ColorPickerForm() {
+export default function ColorPickerForm(color) {
+  console.log(color);
   return (
-    <ColorForm>
-      <ColorPickerInput type={"color"} value={"#cccccc"}></ColorPickerInput>
-    </ColorForm>
+    <form>
+      <label htmlFor="colorPicker">Pick a color: </label>
+      <ColorPickerInput
+        type={"color"}
+        value={color.color}
+        name="colorPicker"
+      ></ColorPickerInput>
+    </form>
   );
 }
