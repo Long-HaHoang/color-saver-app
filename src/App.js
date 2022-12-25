@@ -54,10 +54,16 @@ function App() {
   return (
     <StyledApp>
       <StyledHeader bgcolor={colorPick}>
-        <ColorPickerForm
-          color={colorPick}
-          onHandleSubmit={handleColorSubmit(colorPick, setColorPick)}
-        ></ColorPickerForm>
+        <form>
+          <label htmlFor="colorPicker">Choose a color:</label>
+          <input
+            type="color"
+            name="colorPicker"
+            id="colorPicker"
+            value={colorPick}
+            onChange={(event) => setColorPick(event.target.value)}
+          />
+        </form>
       </StyledHeader>
 
       <StyledCardContainer>

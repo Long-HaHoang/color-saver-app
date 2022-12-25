@@ -4,7 +4,7 @@ import StyledForm from "./ColorForm";
 export default function ColorPickerForm(color, onHandleSubmit) {
   function submitHandler(e) {
     e.preventDefault();
-    const formData = new FormData();
+    const formData = new FormData(e.target.value);
     const data = Object.fromEntries(formData);
     console.log("Submit data", data);
   }
