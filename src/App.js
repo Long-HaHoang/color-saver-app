@@ -19,7 +19,11 @@ const StyledApp = styled.div`
   gap: 30px;
 `;
 
-const StyledHeader = styled.div`
+const StyledHeader = styled.div.attrs((props) => ({
+  style: {
+    color: props.color,
+  },
+}))`
   height: 200px;
   aspect-ratio: 1;
   border: 2px solid;
@@ -42,9 +46,13 @@ const StyledCardContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-function handleColorSubmit(color, setColorPick) {
-  console.log("this is handleColorSubmit");
-  console.table(color, setColorPick);
+function handleColorSubmit(event, setFunction) {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  const data = Object.fromEntries(formData);
+  console.log("submit data", data);
+  setFunction(data.colorInput);
+  event.target.colorInput.value = "";
 }
 
 function App() {
@@ -54,7 +62,7 @@ function App() {
   return (
     <StyledApp>
       <StyledHeader bgcolor={colorPick}>
-        <form>
+        <form onSubmit={(event) => handleColorSubmit(event, setColorPick)}>
           <label htmlFor="colorPicker">Choose a color:</label>
           <input
             type="color"
@@ -62,6 +70,13 @@ function App() {
             id="colorPicker"
             value={colorPick}
             onChange={(event) => setColorPick(event.target.value)}
+          />
+          <label htmlFor="colorInput">ColorInput:</label>
+          <input
+            type="text"
+            name="colorInput"
+            id="colorInput"
+            placeholder={colorPick}
           />
         </form>
       </StyledHeader>
