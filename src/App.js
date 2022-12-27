@@ -14,7 +14,7 @@ console.clear();
 
 const StyledApp = styled.div`
   text-align: center;
-  border: solid red;
+  /* border: solid red; */
   display: flex;
   padding: 20px;
   flex-direction: column;
@@ -42,7 +42,7 @@ const StyledHeader = styled.div.attrs((props) => ({
 `;
 
 const StyledCardContainer = styled.div`
-  border: solid;
+  /* border: solid; */
   display: flex;
   gap: 20px;
   justify-content: flex-start;
