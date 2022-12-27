@@ -1,10 +1,12 @@
 import styled from "styled-components";
-import { initialColors } from "./util/initialColors";
-import ColorCard from "./component/ColorCard";
 import { useState } from "react";
+import useLocalStorageState from "use-local-storage-state";
+
+import { initialColors } from "./util/initialColors";
+
+import ColorCard from "./component/ColorCard";
 import handleDelete from "./util/handleDelete";
 import handleColorPick from "./util/handleColorCard";
-import StyledColorName from "./component/ColorCard/SyledColorName";
 
 console.clear();
 
@@ -71,7 +73,7 @@ const StyledColorInput = styled.input`
   width: 50%;
   border: 2px solid;
   border-radius: 5px;
-  background-color: #cccccc;
+  background-color: #fff;
   font-size: 20px;
   font-weight: bold;
   text-align: center;
@@ -98,7 +100,10 @@ function handleColorWheel(event, setColorPick) {
 }
 
 function App() {
-  const [colorsState, setColorsState] = useState(initialColors);
+  // const [colorsState, setColorsState] = useState(initialColors);
+  const [colorsState, setColorsState] = useLocalStorageState("colorsState", {
+    defaultValue: initialColors,
+  });
   const [colorPick, setColorPick] = useState("#cccccc");
 
   return (
