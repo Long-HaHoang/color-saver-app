@@ -12,6 +12,7 @@
     "react-test": "^0.21.0",
     "react-use-localstorage": "^3.5.3",
     "styled-components": "^5.3.6",
+    "use-local-storage-state": "^18.1.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 const StyledDivContainer = styled.div`
   height: 200px;
-  width: 200px;
+  aspect-ratio: 1;
   cursor: pointer;
   border: 2px solid;
   border-radius: 5px;

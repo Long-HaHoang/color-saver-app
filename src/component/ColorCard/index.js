@@ -5,6 +5,8 @@ import StyledColorName from "./SyledColorName";
 export default function ColorCard({
   color,
   id,
+  colorsState,
+  onSetColorsState,
   onHandleColorPick,
   onHandleDelete,
 }) {
@@ -20,7 +22,7 @@ export default function ColorCard({
         <StyledDeleteButton
           onClick={(e) => {
             e.stopPropagation();
-            return onHandleDelete(id);
+            return onHandleDelete(id, colorsState, onSetColorsState);
           }}
         >
           &#120;
