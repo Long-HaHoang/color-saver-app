@@ -4,7 +4,6 @@ import ColorCard from "./component/ColorCard";
 import { useState } from "react";
 import handleDelete from "./util/handleDelete";
 import handleColorPick from "./util/handleColorCard";
-import ColorPickerForm from "./component/ColorPickerForm";
 
 console.clear();
 
@@ -46,6 +45,17 @@ const StyledCardContainer = styled.div`
   flex-wrap: wrap;
 `;
 
+const StyledSubmitButton = styled.button`
+  height: 20%;
+  width: 50%;
+  border: 2px solid;
+  border-radius: 5px;
+  background-color: #cccccc;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+`;
+
 function handleColorSubmit(event, setFunction) {
   event.preventDefault();
   const formData = new FormData(event.target);
@@ -55,6 +65,13 @@ function handleColorSubmit(event, setFunction) {
   event.target.colorInput.value = "";
 }
 
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+`;
+
 function App() {
   const [colorsState, setColorsState] = useState(initialColors);
   const [colorPick, setColorPick] = useState("#cccccc");
@@ -62,7 +79,9 @@ function App() {
   return (
     <StyledApp>
       <StyledHeader bgcolor={colorPick}>
-        <form onSubmit={(event) => handleColorSubmit(event, setColorPick)}>
+        <StyledForm
+          onSubmit={(event) => handleColorSubmit(event, setColorPick)}
+        >
           <label htmlFor="colorPicker">Choose a color:</label>
           <input
             type="color"
@@ -78,7 +97,8 @@ function App() {
             id="colorInput"
             placeholder={colorPick}
           />
-        </form>
+          <StyledSubmitButton type="submit">ADD</StyledSubmitButton>
+        </StyledForm>
       </StyledHeader>
 
       <StyledCardContainer>
