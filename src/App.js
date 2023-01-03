@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
 
@@ -14,7 +14,7 @@ console.clear();
 
 const StyledApp = styled.div`
   text-align: center;
-  border: solid red;
+  /* border: solid red; */
   display: flex;
   padding: 20px;
   flex-direction: column;
@@ -26,23 +26,19 @@ const StyledApp = styled.div`
 //TODO: add props to background-color
 const StyledHeader = styled.div.attrs((props) => ({
   style: {
-    color: props.color,
+    background: props.backgroundColor,
   },
 }))`
   height: 200px;
   aspect-ratio: 1;
   border: 2px solid;
   border-radius: 5px;
-  background-color: ${({ bgcolor }) => {
-    return bgcolor;
-  }};
   display: flex;
   justify-content: center;
   align-items: center;
 `;
-
 const StyledCardContainer = styled.div`
-  border: solid;
+  /* border: solid; */
   display: flex;
   gap: 20px;
   justify-content: flex-start;
@@ -100,7 +96,6 @@ function handleColorWheel(event, setColorPick) {
 }
 
 function App() {
-  // const [colorsState, setColorsState] = useState(initialColors);
   const [colorsState, setColorsState] = useLocalStorageState("colorsState", {
     defaultValue: initialColors,
   });
@@ -108,7 +103,7 @@ function App() {
 
   return (
     <StyledApp>
-      <StyledHeader bgcolor={colorPick}>
+      <StyledHeader backgroundColor={colorPick}>
         <StyledForm
           onSubmit={(event) =>
             handleColorSubmit(event, colorsState, setColorPick, setColorsState)
