@@ -1,13 +1,14 @@
 import styled from "styled-components";
-const StyledDivContainer = styled.div`
+const StyledDivContainer = styled.div.attrs((props) => ({
+  style: {
+    background: props.backgroundColor,
+  },
+}))`
   height: 200px;
   aspect-ratio: 1;
   cursor: pointer;
   border: 2px solid;
   border-radius: 5px;
-  background-color: ${({ color }) => {
-    return color;
-  }};
   position: relative;
   display: flex;
   justify-content: center;
