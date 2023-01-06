@@ -10,8 +10,6 @@ import ColorPickerForm from "./component/ColorPickerForm";
 
 console.clear();
 
-// TODO: refactor styled components
-
 const StyledApp = styled.div`
   text-align: center;
   display: flex;
@@ -44,7 +42,6 @@ function App() {
 
   return (
     <StyledApp>
-      {/* TODO: pass props and states */}
       <ColorPickerForm onNewCard={createNewCard} />
       <StyledCardContainer>
         {colorsState.map((element) => (
