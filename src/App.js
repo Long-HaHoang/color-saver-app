@@ -35,10 +35,17 @@ function App() {
     defaultValue: initialColors,
   });
 
+  function createNewCard(data) {
+    setColorsState([
+      ...colorsState,
+      { colorCode: data.colorInput, id: crypto.randomUUID() },
+    ]);
+  }
+
   return (
     <StyledApp>
       {/* TODO: pass props and states */}
-      <ColorPickerForm />
+      <ColorPickerForm onNewCard={createNewCard} />
       <StyledCardContainer>
         {colorsState.map((element) => (
           <ColorCard

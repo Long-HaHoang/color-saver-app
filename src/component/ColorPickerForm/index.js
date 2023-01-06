@@ -19,19 +19,16 @@ const StyledHeader = styled.div.attrs((props) => ({
   align-items: center;
 `;
 
-export default function ColorPickerForm(color, onHandleSubmit) {
+export default function ColorPickerForm({ onNewCard }) {
   const [colorPick, setColorPick] = useState("#cccccc");
 
-  function handleColorSubmit(event, colorState, setFunction, setColorArray) {
+  function handleColorSubmit(event, setFunction) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
     console.log("submit data", data);
     setFunction(data.colorInput);
-    setColorArray([
-      ...colorState,
-      { colorCode: data.colorInput, id: crypto.randomUUID() },
-    ]);
+    onNewCard(data);
   }
 
   function handleColorInput(event, setColorPick) {
@@ -41,17 +38,12 @@ export default function ColorPickerForm(color, onHandleSubmit) {
 
   return (
     <StyledHeader backgroundColor={colorPick}>
-      <StyledForm
-        onSubmit={(event) =>
-          handleColorSubmit(event, colorsState, setColorPick, setColorsState)
-        }
-      >
+      <StyledForm onSubmit={(event) => handleColorSubmit(event, setColorPick)}>
         <label htmlFor="colorPicker">Choose a color:</label>
         <StyledColorInput
           type="color"
           name="colorPicker"
           id="colorPicker"
-          defaultValue={"#cccccc"}
           value={colorPick}
           onChange={(event) => handleColorInput(event, setColorPick)}
         />
