@@ -13,7 +13,7 @@ export default function ColorCard({
   return (
     <>
       <StyledDivContainer
-        color={color}
+        backgroundColor={color}
         onClick={() => {
           return onHandleColorPick(color);
         }}
