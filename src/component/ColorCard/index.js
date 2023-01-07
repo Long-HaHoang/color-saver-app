@@ -1,6 +1,7 @@
 import StyledDeleteButton from "./StyledDeleteButton";
 import StyledDivContainer from "./StyledDivContainer";
 import StyledColorName from "./SyledColorName";
+import StyledName from "./StyledName";
 
 export default function ColorCard({
   color,
@@ -10,6 +11,7 @@ export default function ColorCard({
   onHandleColorPick,
   onHandleDelete,
   onHandleColorInput,
+  name,
 }) {
   return (
     <>
@@ -20,6 +22,7 @@ export default function ColorCard({
           return onHandleColorPick(color);
         }}
       >
+        <StyledName>{`${name}`}</StyledName>
         <StyledColorName
           type={"text"}
           value={color}

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-import StyledColorInput from "./ColorPickerInput";
-import StyledForm from "./ColorForm";
+import StyledColorInput from "./StyledColorPickerInput";
+import StyledForm from "./StyledColorForm";
 import StyledSubmitButton from "./StyledSubmitButton";
 
 const StyledHeader = styled.div.attrs((props) => ({
