@@ -40,21 +40,39 @@ function App() {
     ]);
   }
 
+  function handleInputEdit(id, eventValue) {
+    console.log(eventValue);
+    setColorsState(
+      colorsState.map((element) => {
+        if (element.id === id) {
+          return {
+            ...element,
+            colorCode: eventValue,
+          };
+        }
+        return element;
+      })
+    );
+  }
+
   return (
     <StyledApp>
       <ColorPickerForm onNewCard={createNewCard} />
       <StyledCardContainer>
-        {colorsState.map((element) => (
-          <ColorCard
-            key={element.id}
-            color={element.colorCode}
-            id={element.id}
-            colorsState={colorsState}
-            onSetColorsState={setColorsState}
-            onHandleColorPick={handleColorPick}
-            onHandleDelete={handleDelete}
-          />
-        ))}
+        {colorsState.map((element) => {
+          return (
+            <ColorCard
+              key={element.id}
+              color={element.colorCode}
+              id={element.id}
+              colorsState={colorsState}
+              onSetColorsState={setColorsState}
+              onHandleColorPick={handleColorPick}
+              onHandleDelete={handleDelete}
+              onHandleColorInput={handleInputEdit}
+            />
+          );
+        })}
       </StyledCardContainer>
     </StyledApp>
   );
