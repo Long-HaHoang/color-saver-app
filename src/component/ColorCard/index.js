@@ -9,16 +9,25 @@ export default function ColorCard({
   onSetColorsState,
   onHandleColorPick,
   onHandleDelete,
+  onHandleColorInput,
 }) {
   return (
     <>
       <StyledDivContainer
         backgroundColor={color}
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           return onHandleColorPick(color);
         }}
       >
-        <StyledColorName>{color}</StyledColorName>
+        <StyledColorName
+          type={"text"}
+          value={color}
+          onChange={(e) => {
+            e.stopPropagation();
+            return onHandleColorInput(id, e.target.value);
+          }}
+        ></StyledColorName>
         <StyledDeleteButton
           onClick={(e) => {
             e.stopPropagation();
