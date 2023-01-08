@@ -85,7 +85,11 @@ function App() {
               onHandleColorPick={handleColorPick}
               onHandleDelete={handleDelete}
               onHandleColorInput={handleInputEdit}
-              name={element.colorName}
+              name={
+                element.colorName === undefined
+                  ? "Loading..."
+                  : element.colorName
+              }
             />
           );
         })}

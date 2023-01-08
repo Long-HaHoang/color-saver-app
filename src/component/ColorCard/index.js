@@ -44,7 +44,12 @@ export default function ColorCard({
 const StyledDivContainer = styled.div.attrs((props) => ({
   style: {
     background: props.backgroundColor,
-    color: props.backgroundColor === "ffffff" ? "black" : props.backgroundColor,
+    color:
+      props.backgroundColor.charAt(1) === "f" &&
+      props.backgroundColor.charAt(3) === "f" &&
+      props.backgroundColor.charAt(5) === "f"
+        ? "rgba(0, 0, 0, 0.1)"
+        : props.backgroundColor,
   },
 }))`
   height: 200px;
@@ -71,7 +76,7 @@ const StyledName = styled.p`
   font-weight: bold;
   font-size: 1.1em;
   color: white;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -81,9 +86,9 @@ const StyledName = styled.p`
 const StyledColorInput = styled.input`
   height: 20%;
   width: 50%;
-  border: 2px solid #424242;
+  border: none;
   border-radius: 5px;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
   color: #eaeaea;
   display: flex;
   justify-content: center;
@@ -99,7 +104,7 @@ const StyledDeleteButton = styled.button`
   right: 5px;
   border: none;
   border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
   color: white;
   cursor: pointer;
   height: 40px;
@@ -111,7 +116,7 @@ const StyledDeleteButton = styled.button`
   align-items: center;
 
   &:hover {
-    filter: saturate(50);
+    background-color: rgba(0, 0, 0, 0.6);
     transition: 0.3s ease-in-out;
   }
 `;
