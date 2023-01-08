@@ -20,14 +20,14 @@ export default function ColorCard({
         }}
       >
         <StyledName>{`${name}`}</StyledName>
-        <StyledColorName
+        <StyledColorInput
           type={"text"}
           value={color}
           onChange={(e) => {
             e.stopPropagation();
             return onHandleColorInput(id, e.target.value);
           }}
-        ></StyledColorName>
+        ></StyledColorInput>
         <StyledDeleteButton
           onClick={(e) => {
             e.stopPropagation();
@@ -53,6 +53,7 @@ const StyledDivContainer = styled.div.attrs((props) => ({
   border-radius: 5px;
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   transition: 0.3s ease-in-out;
@@ -63,11 +64,39 @@ const StyledDivContainer = styled.div.attrs((props) => ({
   }
 `;
 
+const StyledName = styled.p`
+  width: 92%;
+  height: 1.5em;
+  font-weight: bold;
+  font-size: 1.1em;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledColorInput = styled.input`
+  height: 20%;
+  width: 50%;
+  border: 2px solid #424242;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #eaeaea;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+`;
+
 const StyledDeleteButton = styled.button`
   position: absolute;
   top: 5px;
   right: 5px;
-  border: solid;
+  border: 2px solid #424242;
   border-radius: 50%;
   cursor: pointer;
   height: 40px;
@@ -77,24 +106,4 @@ const StyledDeleteButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const StyledColorName = styled.input`
-  height: 20%;
-  width: 50%;
-  border: 2px solid;
-  border-radius: 5px;
-  background-color: #c7ced4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-size: 20px;
-  font-weight: bold;
-  z-index: 3;
-  position: absolute;
-`;
-
-const StyledName = styled.p`
-  align-self: flex-start;
 `;
