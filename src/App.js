@@ -18,8 +18,10 @@ function App() {
 
   useEffect(() => {
     async function fetchEachColor() {
+      // creating a temp Array, to avoid unnecessary rerender when setting states
       let colorNameList = [];
 
+      // Using the normal for-loop, mapping doesn't resove promises in order
       for (let i = 0; i < colorsState.length; i++) {
         try {
           const response = await fetch(
@@ -52,6 +54,7 @@ function App() {
     ]);
   }
 
+  // TODO: FIX ME
   function handleInputEdit(id, eventValue) {
     console.log(eventValue);
     setColorsState(
