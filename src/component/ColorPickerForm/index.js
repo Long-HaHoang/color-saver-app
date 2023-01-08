@@ -1,24 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-import StyledColorInput from "./StyledColorPickerInput";
-import StyledForm from "./StyledColorForm";
-import StyledSubmitButton from "./StyledSubmitButton";
-
-const StyledHeader = styled.div.attrs((props) => ({
-  style: {
-    background: props.backgroundColor,
-  },
-}))`
-  height: 200px;
-  aspect-ratio: 1;
-  border: 2px solid;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 export default function ColorPickerForm({ onNewCard }) {
   const [colorPick, setColorPick] = useState("#cccccc");
 
@@ -61,3 +43,47 @@ export default function ColorPickerForm({ onNewCard }) {
     </StyledHeader>
   );
 }
+
+const StyledHeader = styled.div.attrs((props) => ({
+  style: {
+    background: props.backgroundColor,
+  },
+}))`
+  height: 200px;
+  aspect-ratio: 1;
+  border: 2px solid;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+`;
+
+const StyledColorInput = styled.input`
+  width: 50%;
+  border: 2px solid;
+  border-radius: 5px;
+  background-color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+`;
+
+const StyledSubmitButton = styled.button`
+  height: 20%;
+  width: 50%;
+  border: 2px solid;
+  border-radius: 5px;
+  background-color: #cccccc;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+`;
