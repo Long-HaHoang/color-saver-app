@@ -44,6 +44,7 @@ export default function ColorCard({
 const StyledDivContainer = styled.div.attrs((props) => ({
   style: {
     background: props.backgroundColor,
+    color: props.backgroundColor === "ffffff" ? "black" : props.backgroundColor,
   },
 }))`
   height: 200px;
@@ -96,8 +97,10 @@ const StyledDeleteButton = styled.button`
   position: absolute;
   top: 5px;
   right: 5px;
-  border: 2px solid #424242;
-  border-radius: 50%;
+  border: none;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
   cursor: pointer;
   height: 40px;
   aspect-ratio: 1;
@@ -106,4 +109,9 @@ const StyledDeleteButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &:hover {
+    filter: saturate(50);
+    transition: 0.3s ease-in-out;
+  }
 `;
