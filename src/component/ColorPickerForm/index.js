@@ -44,9 +44,21 @@ export default function ColorPickerForm({ onNewCard }) {
   );
 }
 
+// TODO: converting hex to rgb for card border
+// make feature. conditional card border
+function hexToRgb(hex) {
+  const hexArray = hex.slice(1).match(/.{1,2}/g);
+  return [
+    parseInt(hexArray[0], 16),
+    parseInt(hexArray[1], 16),
+    parseInt(hexArray[2], 16),
+  ];
+}
+console.log(hexToRgb("#000000"));
 const StyledHeader = styled.div.attrs((props) => ({
   style: {
     background: props.backgroundColor,
+    border: `2px solid rgba(0, 0, 0, 0.3)`,
   },
 }))`
   height: 200px;

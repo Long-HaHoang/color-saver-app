@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import useLocalStorageState from "use-local-storage-state";
+import { useEffect } from "react";
+import { useImmer } from "use-immer";
 
 import { initialColors } from "./util/initialColors";
 import handleDelete from "./util/handleDelete";
@@ -7,7 +9,6 @@ import handleColorPick from "./util/handleColorCard";
 
 import ColorCard from "./component/ColorCard";
 import ColorPickerForm from "./component/ColorPickerForm";
-import { useEffect } from "react";
 
 console.clear();
 
@@ -16,6 +17,9 @@ function App() {
     defaultValue: initialColors,
   });
 
+  const [trigger, setTrigger] = useImmer(false);
+
+  // fetch color names
   useEffect(() => {
     async function fetchEachColor() {
       // creating a temp Array, to avoid unnecessary rerender when setting states
@@ -45,7 +49,8 @@ function App() {
       setColorsState(colorNameList);
     }
     fetchEachColor();
-  }, [colorsState, setColorsState]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [trigger]);
 
   function createNewCard(data) {
     setColorsState([
@@ -57,23 +62,37 @@ function App() {
   // TODO: FIX ME
   function handleInputEdit(id, eventValue) {
     console.log(eventValue);
-    setColorsState(
-      colorsState.map((element) => {
-        if (element.id === id) {
-          return {
+    let tempArray = [];
+
+    colorsState.map((element) => {
+      if (element.id === id) {
+        if (element.colorCode.length === 7) {
+          setTrigger(!trigger);
+          return tempArray.push({
             ...element,
+
             colorCode: eventValue,
-          };
+          });
+        } else {
+          return tempArray.push({
+            ...element,
+            colorName: "Waiting...",
+            colorCode: eventValue,
+          });
         }
-        return element;
-      })
-    );
+      } else {
+        setTrigger(!trigger);
+        return tempArray.push(element);
+      }
+    });
+    setColorsState(tempArray);
   }
 
   return (
     <StyledApp>
-      <ColorPickerForm onNewCard={createNewCard} />
+      <h2>Color Palette 1</h2>
       <StyledCardContainer>
+        <ColorPickerForm onNewCard={createNewCard} />
         {colorsState.map((element) => {
           return (
             <ColorCard
@@ -104,7 +123,7 @@ const StyledApp = styled.div`
   padding: 20px;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: 30px;
 `;
 

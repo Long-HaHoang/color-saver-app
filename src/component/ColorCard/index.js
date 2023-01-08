@@ -44,12 +44,7 @@ export default function ColorCard({
 const StyledDivContainer = styled.div.attrs((props) => ({
   style: {
     background: props.backgroundColor,
-    color:
-      props.backgroundColor.charAt(1) === "f" &&
-      props.backgroundColor.charAt(3) === "f" &&
-      props.backgroundColor.charAt(5) === "f"
-        ? "rgba(0, 0, 0, 0.1)"
-        : props.backgroundColor,
+    border: `2px solid rgba(0, 0, 0, 0.1)`,
   },
 }))`
   height: 200px;
