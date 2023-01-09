@@ -123,7 +123,7 @@ const StyledApp = styled.div`
   padding: 20px;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   gap: 30px;
 `;
 
@@ -131,8 +131,8 @@ const StyledCardContainer = styled.div`
   display: flex;
   gap: 20px;
   justify-content: flex-start;
-  align-items: center;
   flex-wrap: wrap;
+  margin-left: 35px;
 `;
 
 export default App;
