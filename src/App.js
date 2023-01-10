@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import useLocalStorageState from "use-local-storage-state";
+import { useEffect } from "react";
+import { useImmer } from "use-immer";
 import useSWR from "swr";
 
 import { initialColors } from "./util/initialColors";
@@ -8,40 +10,49 @@ import handleColorPick from "./util/handleColorCard";
 
 import ColorCard from "./component/ColorCard";
 import ColorPickerForm from "./component/ColorPickerForm";
-import { useEffect } from "react";
-import { useState } from "react";
 
 console.clear();
+
+const URL = "https://www.thecolorapi.com/id?hex=cccccc";
+
+const fetcher = async (url) => {
+  const res = await fetch(url);
+
+  // If the status code is not in the range 200-299,
+  // we still try to parse and throw it.
+  if (!res.ok) {
+    const error = new Error("An error occurred while fetching the data.");
+    // Attach extra info to the error object.
+    error.info = await res.json();
+    error.status = res.status;
+    throw error;
+  }
+
+  return res.json();
+};
 
 function App() {
   const [colorsState, setColorsState] = useLocalStorageState("colorsState", {
     defaultValue: initialColors,
   });
 
+  const [trigger, setTrigger] = useImmer(false);
+
+  const {
+    data: color,
+    isLoading,
+    error,
+  } = useSWR("https://www.thecolorapi.com/id?hex=cccccc", fetcher);
+
+  // fetch color names
   useEffect(() => {
-    async function fetchColorData() {
-      try {
-        const response = await fetch(
-          "https://www.thecolorapi.com/id?hex=cccccc"
-        );
+    let active = true;
 
-        if (!response.ok) {
-          throw new Error("Aargh! Almost had it!");
-        }
-        const data = await response.json();
-
-        return data.results;
-      } catch (error) {
-        console.error("Error :", error.message);
-      }
-    }
-    fetchColorData();
-  }, []);
-
-  useEffect(() => {
     async function fetchEachColor() {
+      // creating a temp Array, to avoid unnecessary rerender when setting states
       let colorNameList = [];
 
+      // Using the normal for-loop, mapping doesn't resove promises in order
       for (let i = 0; i < colorsState.length; i++) {
         try {
           const response = await fetch(
@@ -61,28 +72,18 @@ function App() {
         }
       }
 
-      // const newColorState = colorsState.map(async (color) => {
-      //   try {
-      //     const response = await fetch(
-      //       `https://www.thecolorapi.com/id?hex=${color.colorCode.slice(1)}`
-      //     );
-
-      //     if (!response.ok) {
-      //       throw new Error("Aargh! Almost had it!");
-      //     }
-      //     const data = await response.json();
-
-      //     colorNameList.push({ ...color, colorName: data.name.value });
-      //   } catch (error) {
-      //     console.error("Error :", error.message);
-      //   }
-      // });
-
       console.log(colorNameList);
-      setColorsState(colorNameList);
+      if (active) {
+        setColorsState(colorNameList);
+      }
     }
     fetchEachColor();
-  }, [colorsState, setColorsState]);
+    return () => {
+      active = false;
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [trigger]);
 
   function createNewCard(data) {
     setColorsState([
@@ -91,25 +92,44 @@ function App() {
     ]);
   }
 
+  // TODO: FIX ME
   function handleInputEdit(id, eventValue) {
     console.log(eventValue);
-    setColorsState(
-      colorsState.map((element) => {
-        if (element.id === id) {
-          return {
+    let tempArray = [];
+
+    colorsState.map((element) => {
+      if (element.id === id) {
+        if (element.colorCode.length === 7) {
+          setTrigger(!trigger);
+          return tempArray.push({
             ...element,
+
             colorCode: eventValue,
-          };
+          });
+        } else {
+          return tempArray.push({
+            ...element,
+            colorName: "Waiting...",
+            colorCode: eventValue,
+          });
         }
-        return element;
-      })
-    );
+      } else {
+        setTrigger(!trigger);
+        return tempArray.push(element);
+      }
+    });
+    setColorsState(tempArray);
+  }
+
+  if (isLoading || !color || error) {
+    return null;
   }
 
   return (
     <StyledApp>
-      <ColorPickerForm onNewCard={createNewCard} />
+      <h2>Color Palette 1</h2>
       <StyledCardContainer>
+        <ColorPickerForm onNewCard={createNewCard} />
         {colorsState.map((element) => {
           return (
             <ColorCard
@@ -121,7 +141,11 @@ function App() {
               onHandleColorPick={handleColorPick}
               onHandleDelete={handleDelete}
               onHandleColorInput={handleInputEdit}
-              name={element.colorName}
+              name={
+                element.colorName === undefined
+                  ? "Loading..."
+                  : element.colorName
+              }
             />
           );
         })}
@@ -144,8 +168,8 @@ const StyledCardContainer = styled.div`
   display: flex;
   gap: 20px;
   justify-content: flex-start;
-  align-items: center;
   flex-wrap: wrap;
+  margin-left: 35px;
 `;
 
 export default App;
