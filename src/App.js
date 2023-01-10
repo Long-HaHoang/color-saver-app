@@ -2,6 +2,7 @@ import styled from "styled-components";
 import useLocalStorageState from "use-local-storage-state";
 import { useEffect } from "react";
 import { useImmer } from "use-immer";
+import useSWR from "swr";
 
 import { initialColors } from "./util/initialColors";
 import handleDelete from "./util/handleDelete";
@@ -12,6 +13,24 @@ import ColorPickerForm from "./component/ColorPickerForm";
 
 console.clear();
 
+const URL = "https://www.thecolorapi.com/id?hex=cccccc";
+
+const fetcher = async (url) => {
+  const res = await fetch(url);
+
+  // If the status code is not in the range 200-299,
+  // we still try to parse and throw it.
+  if (!res.ok) {
+    const error = new Error("An error occurred while fetching the data.");
+    // Attach extra info to the error object.
+    error.info = await res.json();
+    error.status = res.status;
+    throw error;
+  }
+
+  return res.json();
+};
+
 function App() {
   const [colorsState, setColorsState] = useLocalStorageState("colorsState", {
     defaultValue: initialColors,
@@ -19,8 +38,16 @@ function App() {
 
   const [trigger, setTrigger] = useImmer(false);
 
+  const {
+    data: color,
+    isLoading,
+    error,
+  } = useSWR("https://www.thecolorapi.com/id?hex=cccccc", fetcher);
+
   // fetch color names
   useEffect(() => {
+    let active = true;
+
     async function fetchEachColor() {
       // creating a temp Array, to avoid unnecessary rerender when setting states
       let colorNameList = [];
@@ -46,9 +73,15 @@ function App() {
       }
 
       console.log(colorNameList);
-      setColorsState(colorNameList);
+      if (active) {
+        setColorsState(colorNameList);
+      }
     }
     fetchEachColor();
+    return () => {
+      active = false;
+    };
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trigger]);
 
@@ -86,6 +119,10 @@ function App() {
       }
     });
     setColorsState(tempArray);
+  }
+
+  if (isLoading || !color || error) {
+    return null;
   }
 
   return (
